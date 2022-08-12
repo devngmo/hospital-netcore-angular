@@ -1,0 +1,11 @@
+.input-missing {
+  color: red;
+}
+
+.input-accepted {
+  color: green;
+}
+
+mat-form-field {
+    width: 100%;
+}

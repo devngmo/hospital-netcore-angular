@@ -1,0 +1,36 @@
+<h1 id="tableLabel">Patient List</h1>
+
+<p *ngIf="!patients"><em>Loading...</em></p>
+
+<div>
+  <button [routerLink]="['/patient-registration-form']">Add patient</button>
+  <button (click)="generateMassiveData()">Generate Massive Data</button>
+</div>
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="patients">
+  <thead>
+    <tr>
+      <th>Index</th>
+      <th>Name</th>
+      <th>Age</th>
+      <th>Registration Time</th>
+      <th>Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of patients">
+      <td>{{ p.orderNo }}</td>
+      <td>{{ p.patientName }}</td>
+      <td>{{ p.patientAge }}</td>
+      <td>{{ p.registrationTime }}</td>
+      <td>{{ p.reason }}</td>
+    </tr>
+  </tbody>
+</table>
+<mat-paginator
+               (page)="handlePageEvent($event)"
+               length={{paginatorData.totalCount}}
+               pageSize={{paginatorData.itemsPerPage}}
+               [pageSizeOptions]="[5,10,25,50,100,200,500]"
+               >
+
+</mat-paginator>
