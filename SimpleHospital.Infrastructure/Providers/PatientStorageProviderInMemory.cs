@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SimpleHospital.Infrastructure.Providers
 {
-    public class InMemoryPatientStorageProvider : PatientStorageProviderInterface
+    public class PatientStorageProviderInMemory : PatientStorageProviderInterface
     {
         List<PatientEntity> _entities = new List<PatientEntity>();
         public string Add(PatientEntity patient)
@@ -43,6 +43,10 @@ namespace SimpleHospital.Infrastructure.Providers
         public List<PatientEntity> GetAll()
         {
             return _entities;
+        }
+
+        public async void init()
+        {
         }
     }
 }

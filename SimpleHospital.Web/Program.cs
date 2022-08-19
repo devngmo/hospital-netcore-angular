@@ -23,7 +23,9 @@ builder.Services.AddIdentityServer()
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
 
-builder.Services.AddSingleton<PatientStorageProviderInterface, InMemoryPatientStorageProvider>();
+//PatientStorageProviderInMemory 
+PatientStorageProviderMongoDB mongoStorage = new PatientStorageProviderMongoDB("mongodb://localhost:27017");
+builder.Services.AddSingleton<PatientStorageProviderInterface>(mongoStorage);
 builder.Services.AddSingleton<PatientRepository>();
 
 builder.Services.AddControllersWithViews();

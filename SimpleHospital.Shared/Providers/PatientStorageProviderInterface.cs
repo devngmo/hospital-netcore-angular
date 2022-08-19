@@ -9,6 +9,7 @@ namespace SimpleHospital.Shared.Providers
 {
     public interface PatientStorageProviderInterface
     {
+        void init();
         int CountAll();
         string Add(PatientEntity patient);
         List<PatientEntity> GetAll();

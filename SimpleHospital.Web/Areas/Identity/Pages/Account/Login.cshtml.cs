@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using SimpleHospital.Web.Models;
+using SimpleHospital.Shared.Providers;
 
 namespace SimpleHospital.Web.Areas.Identity.Pages.Account
 {
@@ -22,11 +23,13 @@ namespace SimpleHospital.Web.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly PatientStorageProviderInterface _storage;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, PatientStorageProviderInterface storage)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _storage = storage;
         }
 
         /// <summary>
@@ -115,6 +118,7 @@ namespace SimpleHospital.Web.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    _storage.init();
                     _logger.LogInformation("User logged in.");
                     return LocalRedirect(returnUrl);
                 }
